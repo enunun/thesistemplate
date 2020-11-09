@@ -1,0 +1,86 @@
+\documentclass[a4paper, titlepage]{ltjsreport} % standard class
+\usepackage{fontspec}
+\usepackage{luatexja-fontspec}
+\usepackage[Haranoaji]{luatexja-preset}
+\usepackage[version=4]{mhchem} % chemical formula
+\usepackage{siunitx} % e.g. \SI{1}{cm}  
+\usepackage{graphicx} % figure
+\graphicspath{{./fig/import/}} % path of figure
+\usepackage{amsmath}
+\usepackage{amssymb} % if you load unicode-math package, you should not load this package.
+\usepackage{bxtexlogo} % logo such as "\pdftex"
+\bxtexlogoimport{*,**} % setting for bxtexlogo
+\usepackage[example]{cnltx} % for TeX/LaTeX command
+
+\usepackage[unicode, hidelinks, draft = false, pdfusetitle]{hyperref} % hyperlink
+
+\hypersetup{% setting hyperref
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarkstype=toc,
+  pdfborder={0 0 0},
+  colorlinks = false
+}
+
+\usepackage{footnotebackref}
+\usepackage{cleveref} % cross reference
+% \crefname{type}{singlur form}{plural form}
+\crefname{equation}{式}{式}
+\crefname{table}{表}{表}
+\crefname{figure}{図}{図}
+\crefformat{chapter}{第#2#1#3章}
+\crefname{section}{節}{節}
+\usepackage{booktabs}
+\usepackage{sty/titlelayout} % fix \maketitle
+\subject{修士論文}
+\title{学位論文用{\LaTeX}テンプレート}
+\author{野口匠}
+\affiliation{高知工科大学大学院 河野研究室}
+\date{\today}
+
+\usepackage{xparse}
+
+\usepackage[%
+backend = biber,%
+articletitle = false,%
+url = false,%
+doi = false,%
+eprint = false,%
+isbn = false,%
+sortcites = true, % \cite{paper1, paper2, paper3} -> [1-3]
+style = phys%
+]{biblatex} % use "biblatex"
+\addbibresource{reference/reference.bib}
+%
+\DeclareFieldFormat[article]{journaltitle}{\mkbibemph{#1}}
+%
+% replace journal name with its abbreviations
+%
+\DeclareSourcemap{
+    \maps[datatype=bibtex, overwrite=true]{
+        \map{
+            \step[fieldsource=Journal,
+                match=\regexp{Applied\sPhysics\sLetters},
+                replace={Appl. Phys. Lett.}]
+            \step[fieldsource=journal,
+                match=\regexp{Journal\sof\sNanoscience\sand\sNanotechnology},
+                replace={J. Nanosci. Nanotechnol.}]
+            \step[fieldsource=journal,
+                match=\regexp{Japanese\sJournal\sof\sApplied\sPhysics},
+                replace={Jpn. J. Appl. Phys.}]
+        }
+    }
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\include{part/abstract}
+
+\include{part/introduction}
+
+\printbibliography[title=参考文献, heading=bibintoc]
+\end{document}

@@ -1,0 +1,20 @@
+# custom sequence
+sequence = ["shell", "latex", "biblatex", "latex", "latex"]
+
+# select source
+source = "thesis.tex"
+
+# shell
+[programs.shell]
+command = "bash"
+args = "svg2pdf.sh"
+
+# latex
+[programs.latex]
+command = "lualatex"
+args = "%T"
+
+# biblatex
+[programs.biblatex]
+command = "biber"
+args = "%B.bcf"
